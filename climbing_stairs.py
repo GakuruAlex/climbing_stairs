@@ -17,7 +17,7 @@ def climbing_stairs_recur(height: int) -> int:
 def climbing_stairs_memo(height: int, memo: Dict[int, int] = {0:1, 1:1, 2: 2}) ->None:
     if height in memo:
         return memo[height]
-    memo[height] = climbing_stairs_memo(height - 2, memo) + climbing_stairs_memo(height - 1, memo)
+    memo[height] = climbing_stairs_memo(height - 1, memo) + climbing_stairs_memo(height - 2, memo)
     return memo[height]
 
 def climbing_stairs_tabulate(height: int) -> int:
@@ -27,7 +27,7 @@ def climbing_stairs_tabulate(height: int) -> int:
     return ways[height]
 
 def main()->None:
-    height: int = 4
+    height: int = 5
     ways: int = climbing_stairs_tabulate(height=height)
     print(f"There are {ways} ways to reach the top of {height} stairs, climbing either 1 or 2 stairs at a time")
     ways: int = climbing_stairs_memo(height=height)
