@@ -1,3 +1,4 @@
+from typing import Dict
 def climbing_stairs_recur(height: int) -> int:
     """_Find how many ways there are to reach the top of a staircase if you can only take ascend one or two levels at a time_
 
@@ -13,10 +14,19 @@ def climbing_stairs_recur(height: int) -> int:
         return 1
     return climbing_stairs_recur(height - 2) + climbing_stairs_recur(height - 1)
 
+def climbing_stairs_memo(height: int, memo: Dict[int, int] = {0:1, 1:1, 2: 2}) ->None:
+    if height in memo:
+        return memo[height]
+    memo[height] = climbing_stairs_memo(height - 2, memo) + climbing_stairs_memo(height - 1, memo)
+    return memo[height]
+
 def main()->None:
     height: int = 5
     ways: int = climbing_stairs_recur(height=height)
     print(f"There are {ways} ways to reach the top of {height} stairs, climbing either 1 or 2 stairs at a time")
+    ways: int = climbing_stairs_memo(height=height)
+    print(f"There are {ways} ways to reach the top of {height} stairs, climbing either 1 or 2 stairs at a time")
+    
 
 if __name__ == "__main__":
     main()
